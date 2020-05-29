@@ -640,6 +640,22 @@ class Network extends ContentProcessDomain {
     });
   }
 
+  agentScroll(options = {}) {
+    if (options.target == "document") {
+      // XXX: This could end up targeting the wrong window if the
+      // client sent an event before the server navigated. I'd prefer
+      // if we made a "virtualNode" for the document that can keep metadata
+      // like this and would have a target id to make sure we are talking to
+      // the right one.
+      this.content.scrollTo(options.scrollX, options.scrollY);
+    } else {
+      let target = this.getNodeFromRemoteID(options.target);
+      if (target) {
+        target.scrollTo(options.scrollX, options.scrollY);
+      }
+    }
+  }
+
   agentKey(options = {}) {
     let target = this.getNodeFromRemoteID(options.target);
     let relatedTarget = this.getNodeFromRemoteID(options.relatedTarget);
