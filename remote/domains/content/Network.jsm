@@ -593,6 +593,7 @@ class DOMBaker {
       node.tagName == "IFRAME" ||
       node.tagName == "SCRIPT" ||
       node.tagName == "LINK" ||
+      node.tagName == "META" ||
       node.tagName == "STYLE"
     ) {
       // Put a placeholder to avoid messing up UA styles like
