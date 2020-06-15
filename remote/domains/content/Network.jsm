@@ -298,7 +298,6 @@ class DOMBaker {
 
     const handleAttributeChanged = ({ target }, bucket) => {
       const virtualNode = $nodesToVirtualNodes.get(target);
-
       if (virtualNode) {
         Object.assign(virtualNode, this.getVirtualNodeBase(target));
         // XXX: This really needs to invalidate children & siblings as well,
@@ -513,7 +512,6 @@ class DOMBaker {
 
   getVirtualNodeBase(node) {
     let virtualNodeBase = {
-      tag: node.tagName.toLowerCase(),
       size: this.getSize(node),
       // Right now this is an object with cssText for each pseudo elt, along
       // with the currently applied styles (elementStyles). Could consider
@@ -618,6 +616,7 @@ class DOMBaker {
 
     let virtualNode = this.getVirtualNodeBase(node);
     Object.assign(virtualNode, {
+      tag: node.tagName.toLowerCase(),
       id: ExtensionUtils.getUniqueId(),
       parentID: isDocElement ? null : parentTree.id,
       nodeType: node.nodeType,
